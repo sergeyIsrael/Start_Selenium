@@ -1,3 +1,5 @@
+package otherTests;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -51,7 +53,6 @@ public class StartSelenium {
         wd.findElement(By.cssSelector("body a[href='/home']"));
         wd.findElement(By.cssSelector("body [href='/home']"));
         wd.findElement(By.cssSelector("div [href='/home']"));
-
     }
 
     @AfterTest
