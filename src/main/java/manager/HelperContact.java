@@ -58,6 +58,8 @@ public void clickDeleteContact(){
 //    //div[@class='contact-item-detailed_card__50dTS']/button[2]
 //    //button[text()='Remove']
 //    //button[normalize-space()='Remove']
+//    div[class*='contact-item-detailed_'] button:last-child
+//    div[class*='contact-item-detailed_'] button:nth-of-type(2)
 }
 
 
