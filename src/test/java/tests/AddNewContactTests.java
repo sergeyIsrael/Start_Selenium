@@ -1,8 +1,6 @@
 package tests;
 
 import User.Contact;
-import User.User;
-import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -38,7 +36,7 @@ public class AddNewContactTests extends TestBase{
             .build();
 
     logger.info("Phone number is " + contact.getPhone());
-    app.getHelperContact().openContactForm();
+    app.getHelperContact().openAddContactForm();
     app.getHelperContact().fillContactForm(contact);
     app.getHelperContact().submitContactForm();
     app.getHelperContact().pause(3000);
@@ -47,7 +45,11 @@ public class AddNewContactTests extends TestBase{
 
 
 @Test
-    public void deleteContact(){
+    public void deleteContact() {
+    app.getHelperContact().openContacts();
+    app.getHelperContact().findContact("552345678901");
+    app.getHelperContact().pause(3000);
+    app.getHelperContact().clickDeleteContact();
 
 }
 

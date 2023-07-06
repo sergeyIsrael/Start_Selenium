@@ -2,6 +2,7 @@ package manager;
 
 import com.google.common.io.Files;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,8 @@ import java.io.IOException;
 public class HelperBase {
 
     WebDriver wd;
+
+    ApplicationManager app = new ApplicationManager();
 
     public HelperBase(WebDriver wd) {
         this.wd = wd;
@@ -18,9 +21,19 @@ public class HelperBase {
         wd.findElement(locator).click();
     }
 
+        public void clickByCoordinates(By locator){
+        Rectangle rect = wd.findElement(locator).getRect();
+        int x = rect.getX() + rect.getWidth() / 2;
+        int y = rect.getY() + rect.getHeight() / 2;
+        Actions actions = new Actions(wd);
+        actions.moveByOffset(x, y)
+                .click()
+                .perform();
+    }
+
     public void type(By locator, String text) {
         WebElement element = wd.findElement(locator);
-        element.click();
+//        element.click();
         element.clear();
         element.sendKeys(text);
     }

@@ -2,7 +2,9 @@ package manager;
 
 import User.Contact;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class HelperContact extends HelperBase {
 
@@ -10,8 +12,12 @@ public class HelperContact extends HelperBase {
         super(wd);
     }
 
-    public void openContactForm(){
+    public void openAddContactForm(){
         wd.findElement(By.xpath("//*[.='ADD']")).click();
+    }
+
+    public void openContacts(){
+        wd.findElement(By.xpath("//*[.='CONTACTS']")).click();
     }
 
     public void fillContactForm(Contact contact){
@@ -33,10 +39,22 @@ public class HelperContact extends HelperBase {
        return  phone.equals(contact.getPhone());
     }
 
+public void findContact(String phoneNumber) {
+    WebElement contact = null;
+    try {
+        contact = wd.findElement(By.xpath("//div[@class='contact-item_card__2SOIM']/h3[text()='" + phoneNumber + "']"));
+    } catch (NoSuchElementException e) {
+        app.logger.info("Contact with phone: " + phoneNumber + " is not found.");
+    }
 
+    if (contact != null)
+        contact.click();
+}
 
-
-
+public void clickDeleteContact(){
+        app.getHelperContact().click(By.xpath("//button[text()='Remove']"));
+//        app.getHelperContact().clickByCoordinates(By.xpath("//button/following-sibling::button"));
+}
 
 
 
