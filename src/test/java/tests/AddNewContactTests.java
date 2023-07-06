@@ -48,7 +48,7 @@ public class AddNewContactTests extends TestBase{
     public void deleteContact() {
     app.getHelperContact().openContacts();
     app.getHelperContact().findContact("552345678901");
-    app.getHelperContact().pause(3000);
+//    app.getHelperContact().pause(5000);
     app.getHelperContact().clickDeleteContact();
 
 }

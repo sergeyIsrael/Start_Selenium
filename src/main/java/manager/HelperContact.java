@@ -54,6 +54,10 @@ public void findContact(String phoneNumber) {
 public void clickDeleteContact(){
         app.getHelperContact().click(By.xpath("//button[text()='Remove']"));
 //        app.getHelperContact().clickByCoordinates(By.xpath("//button/following-sibling::button"));
+
+//    //div[@class='contact-item-detailed_card__50dTS']/button[2]
+//    //button[text()='Remove']
+//    //button[normalize-space()='Remove']
 }
 
 
