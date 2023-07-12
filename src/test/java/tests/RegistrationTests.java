@@ -14,21 +14,20 @@ import org.testng.annotations.Test;
 
 public class RegistrationTests extends TestBase{
 
-    @BeforeMethod
+    @BeforeMethod (alwaysRun = true)
     public void precondition(){
         if(app.getUser().isLogged()){
             app.getUser().logout();
         }
     }
 
-    @Test
+    @Test (groups = {"smoke", "positive", "regress"})
     public void registrationPositive(){
 
         int i = (int)(System.currentTimeMillis()/1000)%3600;
-//        String email = "abc" + i + "@def.com", password = "$Abcdef12345";
         User user = new User()
-        .withEmail("abc" + i + "@def.com")
-        .withPassword("$Abcdef12345");
+        .withEmail("abc" + i + "@mail.com")
+        .withPassword("$ABcdef12345");
 
         app.getUser().openLoginForm();
         app.getUser().fillLoginForm(user);
@@ -40,10 +39,10 @@ public class RegistrationTests extends TestBase{
         Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button")));
     }
 
-    @Test
+    @Test (groups = {"regress", "negative"})
     public void registrationNegativeWrongEmail(){
         int i = (int)(System.currentTimeMillis()/1000)%3600;
-        String email = "abc" + i + "def.com", password = "$Abcdef12345";
+        String email = "abc" + i + "mail.com", password = "Ss34567$";
         app.getUser().openLoginForm();
         app.getUser().fillLoginForm(email, password);
         app.getUser().submitRegistration();
@@ -52,13 +51,13 @@ public class RegistrationTests extends TestBase{
     @Test
     public void registrationNegativeWrongPassword(){
         int i = (int)(System.currentTimeMillis()/1000)%3600;
-        String email = "abc" + i + "@def.com", password = "Abcdef12345";
+        String email = "abc" + i + "@mail.com", password = "12345";
         app.getUser().openLoginForm();
         app.getUser().fillLoginForm(email, password);
         app.getUser().submitRegistration();
     }
 
-    @AfterMethod
+    @AfterMethod (alwaysRun = true)
     public void tearDown(){
     }
 

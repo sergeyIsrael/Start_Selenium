@@ -11,8 +11,6 @@ public class HelperBase {
 
     WebDriver wd;
 
-    ApplicationManager app = new ApplicationManager();
-
     public HelperBase(WebDriver wd) {
         this.wd = wd;
     }

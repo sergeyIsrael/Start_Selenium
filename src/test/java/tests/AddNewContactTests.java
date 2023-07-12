@@ -11,7 +11,7 @@ public class AddNewContactTests extends TestBase{
 
     Logger logger = LoggerFactory.getLogger(AddNewContactTests.class);
 
-@BeforeMethod
+@BeforeMethod(alwaysRun = true)
     public void precondition(){
     if(!app.getUser().isLogged()) {
         String email = "sergei1@mail.com", password = "Ss34567$";
@@ -21,15 +21,13 @@ public class AddNewContactTests extends TestBase{
     }
 }
 
-
-@Test
+@Test (invocationCount = 5, groups = {"positive"}) // will be created 5 contacts
     public void addNewContactPositive(){
-
     int i = (int)(System.currentTimeMillis()/1000)%3600;
     Contact contact = Contact.builder()
-            .name("Mia" + i )
-            .lastName("Orlova")
-            .phone("053773" + i)
+            .name("Bin" + i )
+            .lastName("Mister")
+            .phone("0537731" + i)
             .email("mia" + i +"@gmail.com")
             .address("Tel Aviv")
             .description("goood person")
@@ -42,25 +40,6 @@ public class AddNewContactTests extends TestBase{
     app.getHelperContact().pause(3000);
     Assert.assertTrue(app.getHelperContact().isContactCreated(contact));
 }
-
-
-@Test
-    public void deleteContact() {
-    app.getHelperContact().openContacts();
-    app.getHelperContact().findContact("552345678901");
-//    app.getHelperContact().pause(5000);
-    app.getHelperContact().clickDeleteContact();
-
-}
-
-
-
-
-
-
-
-
-
 
 
 

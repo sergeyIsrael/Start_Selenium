@@ -10,19 +10,19 @@ import org.testng.annotations.Test;
 public class LoginTests extends TestBase {
 
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void precondition(){
         if(app.getUser().isLogged()){
             app.getUser().logout();
         }
     }
 
-    @Test
+    @Test(groups = {"smoke","positive"})
     public void loginPositiveTestBase(){
 //        String email = "abc@def.com", password = "$Abcdef12345";
-        User user = new User();
-        user.withEmail("abc@def.com")
-                .withPassword("$Abcdef12345");
+        User user = new User()
+                .withEmail("sergei1@mail.com")
+                .withPassword("Ss34567$");
 
         app.getUser().openLoginForm();
         app.getUser().fillLoginForm(user);
@@ -32,9 +32,9 @@ public class LoginTests extends TestBase {
         Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button")));
     }
 
-    @Test
+    @Test(groups = {"regress", "negative"})
     public void loginNegativeWrongEmail(){
-        String email = "abcdef.com", password = "$Abcdef12345";
+        String email = "sergei1@mailcom", password = "Ss34567$";
         app.getUser().openLoginForm();
         app.getUser().fillLoginForm(email, password);
         app.getUser().submitLogin();

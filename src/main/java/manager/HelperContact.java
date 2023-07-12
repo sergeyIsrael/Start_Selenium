@@ -5,8 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HelperContact extends HelperBase {
+
+    Logger logger = LoggerFactory.getLogger(HelperContact.class);
 
     public HelperContact(WebDriver wd) {
         super(wd);
@@ -39,21 +43,24 @@ public class HelperContact extends HelperBase {
        return  phone.equals(contact.getPhone());
     }
 
-public void findContact(String phoneNumber) {
+public boolean findContact(String phoneNumber) {
     WebElement contact = null;
     try {
         contact = wd.findElement(By.xpath("//div[@class='contact-item_card__2SOIM']/h3[text()='" + phoneNumber + "']"));
     } catch (NoSuchElementException e) {
-        app.logger.info("Contact with phone: " + phoneNumber + " is not found.");
+        logger.info("Contact with phone: " + phoneNumber + " is not found.");
     }
 
-    if (contact != null)
+    if (contact != null) {
         contact.click();
+        return true;
+    } else {
+        return false;
+    }
 }
 
-public void clickDeleteContact(){
-        app.getHelperContact().click(By.xpath("//button[text()='Remove']"));
-//        app.getHelperContact().clickByCoordinates(By.xpath("//button/following-sibling::button"));
+public void clickRemoveButton(){
+        click(By.xpath("//button[text()='Remove']"));
 
 //    //div[@class='contact-item-detailed_card__50dTS']/button[2]
 //    //button[text()='Remove']
@@ -62,9 +69,30 @@ public void clickDeleteContact(){
 //    div[class*='contact-item-detailed_'] button:nth-of-type(2)
 }
 
+    public int removeOneContact(){
+        int countBefore = countContacts();
+        logger.info("Amount of contacts before is " + countBefore);
+        click(By.xpath("//div[@class='contact-item_card__2SOIM']"));
+        click(By.xpath("//button[.='Remove']"));
+        pause(3000);
+        int countAfter = countContacts();
+        logger.info("Amount of contacts after is " + countAfter);
+        return countAfter - countBefore;
+    }
 
+//    public void removeAllContacts(){
+//        while (wd.findElements(By.xpath("//div[@class='contact-item_card__2SOIM']")).size() > 0){
+//            removeOneContact();
+//        }
+//    }
 
+    public int countContacts(){
+        return wd.findElements(By.xpath("//div[@class='contact-item_card__2SOIM']")).size();
+    }
 
+    public boolean isNoContacts(){
+        return wd.findElements(By.xpath("//div[@class='contact-item_card__2SOIM']")).size()==0;
+    }
 
 
 
