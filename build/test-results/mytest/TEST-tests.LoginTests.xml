@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tests.LoginTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-08-12T11:23:14" hostname="MacBook-Pro-mac.lan" time="10.117">
+  <properties/>
+  <testcase name="loginNegativeWrongEmail" classname="tests.LoginTests" time="1.592"/>
+  <testcase name="loginPositiveTestBase" classname="tests.LoginTests" time="3.514"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[console.warn: LoginRecipes: "Falling back to a synchronous message for: https://telranedu.web.app."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://telranedu.web.app."
+]]></system-err>
+</testsuite>
