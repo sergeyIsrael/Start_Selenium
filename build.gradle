@@ -29,25 +29,29 @@ test {
 // для управления из terminal
 task mytest(type: Test) {
     useTestNG(){
-        def groups = System.getProperty('groups')
+        def groups = System.getProperty("groups")
         if(groups != null){
             includeGroups groups
         }
 //     (def - define - определи) парсим строку, если что придёт записываем в suite, если ничего, оставляем "".
         def suite = System.getProperty("suite", "")
-        if(suite.equals("reg")) {
+        if(suite.equals("registr")) {
 //            Copy Path/Reference > path from repository root
             suites "src/test/resources/registr.xml"
-        } else if (suite.equals("add")) {
+        } else if (suite.equals("add")){
             suites "src/test/resources/add.xml"
-        } else if (suite.equals('negative')){
-            suites 'src/test/resources/negative.xml'
+        } else if (suite.equals("negative")){
+            suites "src/test/resources/negative.xml"
+        } else if (suite.equals("registr")){
+            suites "src/test/resources/registr.xml"
         } else {
-            suites 'src/test/resources/testng.xml'
+            suites "src/test/resources/testng.xml"
         }
     }
 //    считывает слово browser из terminal и его значение (chrome, firefox) передаёт в конструктор AppManager
 //    в классе TestBase, оттуда в сам class AppManager и вызывается конкретный browser
-    if(project.hasProperty('browser'))
-        systemProperty 'browser', '$browser'
+    if(project.hasProperty('browser')){
+        systemProperty 'browser', "${browser}"
+    }
+
 }

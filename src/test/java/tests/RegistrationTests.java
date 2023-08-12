@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 @Listeners(TestNgListener.class)
 
-
 public class RegistrationTests extends TestBase{
 
     @BeforeMethod (alwaysRun = true)
@@ -46,15 +45,17 @@ public class RegistrationTests extends TestBase{
         app.getUser().openLoginForm();
         app.getUser().fillLoginForm(email, password);
         app.getUser().submitRegistration();
+        Assert.assertTrue( app.getUser().isAlertPresent() );
     }
 
-    @Test
+    @Test (groups = {"regress", "negative"})
     public void registrationNegativeWrongPassword(){
         int i = (int)(System.currentTimeMillis()/1000)%3600;
         String email = "abc" + i + "@mail.com", password = "12345";
         app.getUser().openLoginForm();
         app.getUser().fillLoginForm(email, password);
         app.getUser().submitRegistration();
+        Assert.assertTrue( app.getUser().isAlertPresent() );
     }
 
     @AfterMethod (alwaysRun = true)

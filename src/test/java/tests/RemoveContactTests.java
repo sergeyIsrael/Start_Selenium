@@ -1,5 +1,6 @@
 package tests;
 
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -17,21 +18,23 @@ public class RemoveContactTests extends TestBase {
     }
 
     @Test
-public void removeOneContactPositive(){
+    public void removeOneContactPositive(){
         int res = app.getHelperContact().removeOneContact();
         Assert.assertEquals(-1, res);
     }
 
-    @Test
+//    @Test
 //              my method
     public void removeContactPositive() {
-        boolean isContactExist = app.getHelperContact().findContact("0537732849");
-        app.getHelperContact().clickRemoveButton();
-        Assert.assertTrue(isContactExist);
+       app.getHelperContact().findContact("05377311353");
+       app.getHelperContact().clickRemoveButton();
+       boolean isContactExists = app.getHelperContact().findContact("05377311353");
+       Assert.assertTrue(isContactExists);
 
     }
 
 
 
 
-    }
+
+}

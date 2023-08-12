@@ -1,6 +1,5 @@
 package manager;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
@@ -20,8 +19,8 @@ public class ApplicationManager {
     EventFiringWebDriver wd;
     HelperUser user;
     HelperContact helperContact;
-
     String browser;
+
 //    этот конструктор запустится в TestBase
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -35,7 +34,8 @@ public class ApplicationManager {
         return helperContact;
     }
 
-    @BeforeSuite
+
+//    @BeforeSuite
     public void init(){
 //        wd = new ChromeDriver();
 //        в BrowserType.CHROME вшита команда "chrome" для вызова из terminal
@@ -57,6 +57,6 @@ public class ApplicationManager {
 
     @AfterSuite
     public void tearDown(){
-//        wd.quit();
+        wd.quit();
     }
 }

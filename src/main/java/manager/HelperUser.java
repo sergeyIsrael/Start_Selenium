@@ -27,6 +27,7 @@ public class HelperUser extends HelperBase {
     public void fillLoginForm(User user){
         type(By.xpath("//input[1]"), user.getEmail());
         type(By.xpath("//input[2]"), user.getPassword());
+//        type(By.xpath("input[2]"), user.getPassword()); // wrong xpath
     }
 
     public void submitRegistration(){
@@ -45,15 +46,17 @@ public class HelperUser extends HelperBase {
         return isElementPresent(By.xpath("//*[.='Sign Out']"));
     }
 
+//   alert - всплывающее предупреждающее окно
     public boolean isAlertPresent(){
         Alert alert = new WebDriverWait(wd, 10)
                 .until(ExpectedConditions.alertIsPresent());
-        if(alert == null) return false;
+        if (alert == null) return false;
+//        сдлеать в фокусе alert окно
         wd.switchTo().alert();
-//        System.out.println(alert.getText());
         alert.accept();
         return true;
     }
+
     public boolean isWrongFormatMessage(){
         Alert alert = new WebDriverWait(wd, 10)
                 .until(ExpectedConditions.alertIsPresent());

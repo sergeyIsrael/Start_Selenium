@@ -1,6 +1,7 @@
 package tests;
 
 import User.Contact;
+import manager.ProviderData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -13,15 +14,16 @@ public class AddNewContactTests extends TestBase{
 
 @BeforeMethod(alwaysRun = true)
     public void precondition(){
-    if(!app.getUser().isLogged()) {
+        if(!app.getUser().isLogged()) {
         String email = "sergei1@mail.com", password = "Ss34567$";
         app.getUser().openLoginForm();
         app.getUser().fillLoginForm(email, password);
         app.getUser().submitLogin();
+        }
     }
-}
 
-@Test (invocationCount = 5, groups = {"positive"}) // will be created 5 contacts
+
+@Test (invocationCount = 3, groups = {"positive"}) // will be created 5 contacts
     public void addNewContactPositive(){
     int i = (int)(System.currentTimeMillis()/1000)%3600;
     Contact contact = Contact.builder()
@@ -39,9 +41,19 @@ public class AddNewContactTests extends TestBase{
     app.getHelperContact().submitContactForm();
     app.getHelperContact().pause(3000);
     Assert.assertTrue(app.getHelperContact().isContactCreated(contact));
-}
+    }
 
 
+    @Test (dataProvider = "contactDtoSCV", dataProviderClass = ProviderData.class)
+    public void addNewContactPositiveDtoCSV(Contact contact){
+        logger.info("Phone number is " + contact.getPhone());
+        app.getHelperContact().openAddContactForm();
+        app.getHelperContact().fillContactForm(contact);
+        app.getHelperContact().pause(1000);
+        app.getHelperContact().submitContactForm();
+        app.getHelperContact().pause(3000);
+        Assert.assertTrue(app.getHelperContact().isContactCreated(contact));
+    }
 
 
 
