@@ -36,7 +36,7 @@ task mytest(type: Test) {
 //     (def - define - определи) парсим строку, если что придёт записываем в suite, если ничего, оставляем "".
         def suite = System.getProperty("suite", "")
         if(suite.equals("registr")) {
-//            Copy Path/Reference > path from repository root
+//            Copy Path/Reference > path from  repository root
             suites "src/test/resources/registr.xml"
         } else if (suite.equals("add")){
             suites "src/test/resources/add.xml"
@@ -52,6 +52,10 @@ task mytest(type: Test) {
 //    в классе TestBase, оттуда в сам class AppManager и вызывается конкретный browser
     if(project.hasProperty('browser')){
         systemProperty 'browser', "${browser}"
+    }
+    //    for files with .properties
+    if(project.hasProperty('target')){
+        systemProperty 'target', "${target}"
     }
 
 }
